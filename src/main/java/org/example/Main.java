@@ -1,14 +1,16 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        EmployeePayrollService payrollService = new EmployeePayrollService();
+        // Instantiate the EmployeePayrollService (Singleton)
+        EmployeePayrollService payrollService = EmployeePayrollService.getInstance();
 
         // Step 1: Fetch and display all employees
         System.out.println("All Employees:");
-        for (EmployeePayroll employee : payrollService.getAllEmployees()) {
+        List<EmployeePayroll> employees = payrollService.getAllEmployees();
+        for (EmployeePayroll employee : employees) {
             System.out.println(employee);
         }
 
