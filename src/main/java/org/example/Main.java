@@ -1,26 +1,27 @@
 package org.example;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Main {
+
     public static void main(String[] args) {
-        // Instantiate the EmployeePayrollService (Singleton)
-        EmployeePayrollService payrollService = EmployeePayrollService.getInstance();
+        EmployeePayrollService service = EmployeePayrollService.getInstance();
 
-        // Step 1: Fetch and display all employees
-        System.out.println("All Employees:");
-        List<EmployeePayroll> employees = payrollService.getAllEmployees();
-        for (EmployeePayroll employee : employees) {
-            System.out.println(employee);
+        // Define the start and end dates for the range
+        LocalDate startDate = LocalDate.of(2023, 1, 1);
+        LocalDate endDate = LocalDate.of(2023, 12, 31);
+
+        // Fetch the employees who joined within this range
+        List<EmployeePayroll> employees = service.getEmployeesByJoinDateRange(startDate, endDate);
+
+        // Print out the employees
+        if (employees.isEmpty()) {
+            System.out.println("No employees found in this date range.");
+        } else {
+            for (EmployeePayroll employee : employees) {
+                System.out.println(employee);
+            }
         }
-
-        // Step 2: Update salary for Terisa
-        System.out.println("\nUpdating salary for Terisa...");
-        payrollService.updateEmployeeSalary("Terisa", 3000000.00);
-
-        // Step 3: Verify the update
-        EmployeePayroll updatedEmployee = payrollService.getEmployeeByName("Terisa");
-        System.out.println("\nUpdated Employee Details:");
-        System.out.println(updatedEmployee);
     }
 }
