@@ -50,6 +50,39 @@ public class EmployeePayrollService {
         return employeeList;
     }
 
+    // Method to get statistical analysis by gender (sum, avg, min, max, count)
+    public void getEmployeeStatisticsByGender() {
+        String query = "SELECT gender, SUM(salary) AS total_salary, AVG(salary) AS avg_salary, " +
+                "MIN(salary) AS min_salary, MAX(salary) AS max_salary, COUNT(*) AS total_count " +
+                "FROM employee_payroll GROUP BY gender";
+
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String gender = resultSet.getString("gender");
+                double totalSalary = resultSet.getDouble("total_salary");
+                double avgSalary = resultSet.getDouble("avg_salary");
+                double minSalary = resultSet.getDouble("min_salary");
+                double maxSalary = resultSet.getDouble("max_salary");
+                int totalCount = resultSet.getInt("total_count");
+
+                // Print the statistics for each gender
+                System.out.println("Gender: " + gender);
+                System.out.println("Total Salary: " + totalSalary);
+                System.out.println("Average Salary: " + avgSalary);
+                System.out.println("Minimum Salary: " + minSalary);
+                System.out.println("Maximum Salary: " + maxSalary);
+                System.out.println("Total Employees: " + totalCount);
+                System.out.println("--------------------------------------------------");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     // Helper method to map the result set to an EmployeePayroll object
     private EmployeePayroll mapResultSetToEmployee(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
