@@ -1,16 +1,26 @@
 package org.example;
-import java.util.Scanner;
+
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        EmployeePayrollService service = EmployeePayrollService.getInstance();
-        Scanner scanner = new Scanner(System.in);
+        EmployeePayrollService service = new EmployeePayrollService();
 
-        while (true) {
-            service.showMenu();
-            int option = scanner.nextInt();
-            scanner.nextLine();  // Consume newline
-            service.handleMenuOption(option);
+        EmployeePayroll employee = new EmployeePayroll(
+                "John Doe",
+                "M",
+                LocalDate.of(2023, 1, 15),
+                60000,
+                Arrays.asList("IT", "HR")
+        );
+
+        try {
+            service.addEmployeeWithPayroll(employee);
+            System.out.println("Employee added successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
