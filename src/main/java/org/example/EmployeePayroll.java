@@ -1,6 +1,7 @@
 package org.example;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class EmployeePayroll {
 
@@ -14,100 +15,44 @@ public class EmployeePayroll {
     private double taxablePay;
     private double incomeTax;
     private double netPay;
+    private List<String> departments; // List to hold departments
 
     // Constructor
-    public EmployeePayroll(int id, String name, String gender, double salary, LocalDate startDate) {
+    public EmployeePayroll(int id, String name, String gender, double salary, LocalDate startDate, List<String> departments) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.salary = salary;
         this.startDate = startDate;
+        this.departments = departments;
         calculatePays();
     }
 
-    // Getter and setter methods
-    public int getId() {
-        return id;
-    }
+    // Getter and Setter methods
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public String getGender() { return gender; }
+    public void setGender(String gender) { this.gender = gender; }
+    public double getSalary() { return salary; }
+    public void setSalary(double salary) { this.salary = salary; calculatePays(); }
+    public LocalDate getStartDate() { return startDate; }
+    public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
+    public double getBasicPay() { return basicPay; }
+    public void setBasicPay(double basicPay) { this.basicPay = basicPay; }
+    public double getDeductions() { return deductions; }
+    public void setDeductions(double deductions) { this.deductions = deductions; }
+    public double getTaxablePay() { return taxablePay; }
+    public void setTaxablePay(double taxablePay) { this.taxablePay = taxablePay; }
+    public double getIncomeTax() { return incomeTax; }
+    public void setIncomeTax(double incomeTax) { this.incomeTax = incomeTax; }
+    public double getNetPay() { return netPay; }
+    public void setNetPay(double netPay) { this.netPay = netPay; }
+    public List<String> getDepartments() { return departments; }
+    public void setDepartments(List<String> departments) { this.departments = departments; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public double getSalary() {
-        return salary;
-    }
-
-    public void setSalary(double salary) {
-        this.salary = salary;
-        calculatePays();
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public double getBasicPay() {
-        return basicPay;
-    }
-
-    public void setBasicPay(double basicPay) {
-        this.basicPay = basicPay;
-    }
-
-    public double getDeductions() {
-        return deductions;
-    }
-
-    public void setDeductions(double deductions) {
-        this.deductions = deductions;
-    }
-
-    public double getTaxablePay() {
-        return taxablePay;
-    }
-
-    public void setTaxablePay(double taxablePay) {
-        this.taxablePay = taxablePay;
-    }
-
-    public double getIncomeTax() {
-        return incomeTax;
-    }
-
-    public void setIncomeTax(double incomeTax) {
-        this.incomeTax = incomeTax;
-    }
-
-    public double getNetPay() {
-        return netPay;
-    }
-
-    public void setNetPay(double netPay) {
-        this.netPay = netPay;
-    }
-
-    // Calculate pay breakdown based on salary
+    // Calculate pay breakdown
     private void calculatePays() {
         this.basicPay = salary * 0.8;
         this.deductions = salary * 0.1;
@@ -129,6 +74,7 @@ public class EmployeePayroll {
                 ", taxablePay=" + taxablePay +
                 ", incomeTax=" + incomeTax +
                 ", netPay=" + netPay +
+                ", departments=" + departments +
                 '}';
     }
 }
